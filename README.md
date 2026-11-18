@@ -6,13 +6,13 @@ ChainBeacon is a lightweight Chrome extension popup for identifying common block
 
 ## Supported lookups
 
-| Network | Addresses | Transactions |
-| --- | --- | --- |
-| Bitcoin | Mainnet Base58Check and Bech32/Bech32m | 64-character hexadecimal transaction IDs |
-| Ethereum | EIP-55 checksummed or all-lower/all-upper `0x` addresses | `0x`-prefixed 32-byte hashes |
-| XRP Ledger | Mainnet classic Base58Check addresses | 64-character hexadecimal hashes |
-| TRON | Mainnet Base58Check addresses | 64-character hexadecimal transaction IDs |
-| Solana | Base58 public keys | Base58 64-byte signatures |
+| Network    | Addresses                                                | Transactions                             |
+| ---------- | -------------------------------------------------------- | ---------------------------------------- |
+| Bitcoin    | Mainnet Base58Check and Bech32/Bech32m                   | 64-character hexadecimal transaction IDs |
+| Ethereum   | EIP-55 checksummed or all-lower/all-upper `0x` addresses | `0x`-prefixed 32-byte hashes             |
+| XRP Ledger | Mainnet classic Base58Check addresses                    | 64-character hexadecimal hashes          |
+| TRON       | Mainnet Base58Check addresses                            | 64-character hexadecimal transaction IDs |
+| Solana     | Base58 public keys                                       | Base58 64-byte signatures                |
 
 Unprefixed 64-character hexadecimal hashes are intentionally listed as Bitcoin, XRP Ledger, or TRON candidates rather than guessed. The agent can choose the correct explorer. Explorer links use each network's public mainnet explorer.
 
@@ -20,31 +20,40 @@ Address formats are validated locally, including Base58Check, Bitcoin SegWit che
 
 ## Requirements
 
-- Node.js 22.12 or newer
-- npm
+- Node.js 24.22.3 (see `.nvmrc`)
+- npm 11.19.1
 - Google Chrome (for loading the unpacked extension)
 
-## Install and develop
+## Environment setup and development
 
 ```sh
-npm install
+nvm install
+nvm use
+npm install --global npm@11.19.1
+npm ci
 npm run dev
 ```
 
-`npm run dev` starts the Vite development server for UI work. Chrome loads the built extension from `dist`, so use the production build when testing the extension popup.
+`package.json` pins the expected Node.js range and npm package manager version. `npm ci` installs exactly the dependency tree recorded in `package-lock.json`; use it for clean and repeatable installs. `npm run dev` starts the Vite development server for UI work. Chrome loads the built extension from `dist`, so use the production build when testing the extension popup.
 
-## Tests and production build
+## Checks and production build
 
 ```sh
+npm run lint
+npm run format:check
+npm run typecheck
 npm test
 npm run build
+npm ls
+npm audit --omit=dev
+npm audit
 ```
 
 The build type-checks the TypeScript sources and creates a loadable extension in `dist/`. `npm run preview` can serve the built popup for a quick browser preview; it does not emulate Chrome extension APIs.
 
 ## Load in Chrome
 
-1. Run `npm install` and `npm run build`.
+1. Run `npm ci` and `npm run build`.
 2. Visit `chrome://extensions`.
 3. Turn on **Developer mode**.
 4. Select **Load unpacked** and choose this project's `dist` directory.
