@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { chainLabels, getExplorerUrl } from './domain/explorers';
 import { detectInput, type DetectionResult } from './domain/detection';
 import BitcoinNetwork from './BitcoinNetwork';
+import EthereumNetwork from './EthereumNetwork';
 
 function BeaconMark() {
   return (
@@ -108,6 +109,7 @@ function App() {
       </form>
 
       <BitcoinNetwork />
+      <EthereumNetwork />
 
       {message && (
         <p role="status" className={`status-message${messageIsSuccess ? ' success' : ''}`}>{message}</p>

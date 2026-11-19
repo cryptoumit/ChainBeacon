@@ -91,6 +91,7 @@ h1 span { color: #68d6a8; }
 .bitcoin-card { margin-top: 18px; padding: 11px 12px; border: 1px solid #2b3933; border-radius: 8px; background: rgba(23, 31, 27, 0.78); }
 .bitcoin-heading { display: flex; align-items: center; gap: 7px; }
 .bitcoin-symbol { display: grid; width: 19px; height: 19px; place-items: center; border-radius: 50%; background: #4c3721; color: #f4a340; font-size: 12px; font-weight: 700; }
+.ethereum-symbol { display: grid; width: 19px; height: 19px; place-items: center; border-radius: 50%; background: #303946; color: #a8b6f2; font-size: 10px; }
 .bitcoin-heading h2 { margin: 0; color: #dbe6e0; font-size: 10px; font-weight: 600; }
 .bitcoin-refresh { display: grid; width: 25px; height: 25px; place-items: center; margin-left: auto; border: 1px solid transparent; border-radius: 5px; background: transparent; color: #82958a; cursor: pointer; }
 .bitcoin-refresh:hover:not(:disabled) { border-color: #354b3e; color: #75dcb1; }
