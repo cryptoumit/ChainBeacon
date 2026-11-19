@@ -88,6 +88,23 @@ h1 span { color: #68d6a8; }
 .external-icon { color: #7cdab1; font-size: 12px; }
 .ambiguity-note { margin: 9px 0 0; color: #a3b0aa; font-size: 9px; line-height: 1.5; }
 
+.bitcoin-card { margin-top: 18px; padding: 11px 12px; border: 1px solid #2b3933; border-radius: 8px; background: rgba(23, 31, 27, 0.78); }
+.bitcoin-heading { display: flex; align-items: center; gap: 7px; }
+.bitcoin-symbol { display: grid; width: 19px; height: 19px; place-items: center; border-radius: 50%; background: #4c3721; color: #f4a340; font-size: 12px; font-weight: 700; }
+.bitcoin-heading h2 { margin: 0; color: #dbe6e0; font-size: 10px; font-weight: 600; }
+.bitcoin-refresh { display: grid; width: 25px; height: 25px; place-items: center; margin-left: auto; border: 1px solid transparent; border-radius: 5px; background: transparent; color: #82958a; cursor: pointer; }
+.bitcoin-refresh:hover:not(:disabled) { border-color: #354b3e; color: #75dcb1; }
+.bitcoin-refresh:disabled { cursor: default; }
+.bitcoin-refresh svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.bitcoin-refresh.is-refreshing svg { animation: spin 900ms linear infinite; }
+.bitcoin-stats { display: grid; grid-template-columns: 0.8fr 1.1fr 1.1fr; gap: 8px; margin-top: 9px; }
+.bitcoin-stats > div { display: flex; min-width: 0; flex-direction: column; gap: 3px; color: #84948c; font-size: 8px; }
+.bitcoin-stats strong { color: #e0eae4; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; font-weight: 600; white-space: nowrap; }
+.bitcoin-loading, .bitcoin-error { display: flex; align-items: center; gap: 7px; margin: 9px 0 1px; color: #87968f; font-size: 9px; }
+.bitcoin-error { color: #c18e83; }
+.small-spinner { width: 10px; height: 10px; border: 1.5px solid #40534a; border-top-color: #6dd9aa; border-radius: 50%; animation: spin 700ms linear infinite; }
+.bitcoin-refresh-note { grid-column: 1 / -1; color: #aa8b75; font-size: 8px; }
+
 .footer { justify-content: space-between; gap: 8px; margin-top: 20px; padding-top: 12px; border-top: 1px solid #252d29; color: #77847d; font-size: 8px; }
 .privacy-note { display: flex; flex: 0 0 auto; align-items: center; gap: 4px; color: #82988c; }
 .privacy-note span { color: #69d6a7; }

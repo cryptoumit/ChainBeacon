@@ -3,6 +3,9 @@
   "name": "ChainBeacon",
   "version": "1.0.0",
   "description": "Blockchain intelligence for customer support teams.",
+  "host_permissions": [
+    "https://blockstream.info/*"
+  ],
   "icons": {
     "16": "icons/icon16.png",
     "32": "icons/icon32.png",
