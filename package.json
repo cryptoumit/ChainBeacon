@@ -14,7 +14,7 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "format:check": "prettier --check README.md eslint.config.js .prettierrc.json package.json package-lock.json vite.config.ts tsconfig.json .github/workflows/ci.yml .github/scripts/check-audit.mjs",
+    "format:check": "prettier --check README.md eslint.config.js .prettierrc.json package.json package-lock.json vite.config.ts tsconfig.json .github/workflows/ci.yml src/domain/detection.ts src/domain/detection.test.ts",
     "test": "vitest run",
     "test:watch": "vitest"
   },

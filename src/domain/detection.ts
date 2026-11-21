@@ -1,6 +1,7 @@
 import { isAddress } from 'viem';
 
-export type Chain = 'bitcoin' | 'ethereum' | 'xrp' | 'tron' | 'solana' | 'stellar';
+export type Chain =
+  'bitcoin' | 'ethereum' | 'xrp' | 'tron' | 'solana' | 'stellar';
 export type DataKind = 'address' | 'transaction';
 
 export interface DetectionResult {
@@ -13,6 +14,7 @@ const base58Alphabets = {
   bitcoin: '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz',
   ripple: 'rpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCg65jkm8oFqi1tuvAxyz',
 };
+const stellarBase32Alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
 
 function decodeBase58(value: string, alphabet: string): Uint8Array | null {
   let number = 0n;
@@ -23,7 +25,10 @@ function decodeBase58(value: string, alphabet: string): Uint8Array | null {
   }
 
   const encoded = number.toString(16);
-  const hex = number === 0n ? '' : encoded.padStart(Math.ceil(encoded.length / 2) * 2, '0');
+  const hex =
+    number === 0n
+      ? ''
+      : encoded.padStart(Math.ceil(encoded.length / 2) * 2, '0');
   const bytes = new Uint8Array(hex.length / 2);
   for (let index = 0; index < bytes.length; index += 1) {
     bytes[index] = Number.parseInt(hex.slice(index * 2, index * 2 + 2), 16);
@@ -37,9 +42,22 @@ function decodeBase58(value: string, alphabet: string): Uint8Array | null {
 }
 
 function isStellarPublicKey(value: string): boolean {
-  // StrKeys use the Bitcoin Base58 alphabet, a version byte, and a CRC16-XModem checksum.
-  if (!value.startsWith('G')) return false;
-  const decoded = decodeBase58(value, base58Alphabets.bitcoin);
+  // Account StrKeys are canonical, unpadded RFC 4648 base32 with a version byte and CRC.
+  if (value.length !== 56 || !/^G[A-Z2-7]{55}$/.test(value)) return false;
+  let buffer = 0;
+  let bits = 0;
+  const bytes: number[] = [];
+  for (const character of value) {
+    buffer = (buffer << 5) | stellarBase32Alphabet.indexOf(character);
+    bits += 5;
+    if (bits >= 8) {
+      bits -= 8;
+      bytes.push((buffer >>> bits) & 0xff);
+      buffer &= (1 << bits) - 1;
+    }
+  }
+  if (bits !== 0 || buffer !== 0) return false;
+  const decoded = Uint8Array.from(bytes);
   if (!decoded || decoded.length !== 35 || decoded[0] !== 6 << 3) return false;
 
   let crc = 0;
@@ -51,18 +69,27 @@ function isStellarPublicKey(value: string): boolean {
   }
 
   // StrKey stores the CRC little-endian.
-  return decoded[33] === (crc & 0xff) && decoded[34] === (crc >>> 8);
+  return decoded[33] === (crc & 0xff) && decoded[34] === crc >>> 8;
 }
 
 async function sha256(value: Uint8Array): Promise<Uint8Array> {
   if (!globalThis.crypto?.subtle) {
-    throw new Error('Secure address validation is unavailable in this browser context.');
+    throw new Error(
+      'Secure address validation is unavailable in this browser context.',
+    );
   }
-  const digest = await globalThis.crypto.subtle.digest('SHA-256', value as BufferSource);
+  const digest = await globalThis.crypto.subtle.digest(
+    'SHA-256',
+    value as BufferSource,
+  );
   return new Uint8Array(digest);
 }
 
-async function hasBase58Check(value: string, alphabet: string, version: number): Promise<boolean> {
+async function hasBase58Check(
+  value: string,
+  alphabet: string,
+  version: number,
+): Promise<boolean> {
   const decoded = decodeBase58(value, alphabet);
   if (!decoded || decoded.length !== 25 || decoded[0] !== version) return false;
   const payload = decoded.subarray(0, 21);
@@ -72,7 +99,9 @@ async function hasBase58Check(value: string, alphabet: string, version: number):
 }
 
 function bech32Polymod(values: number[]): number {
-  const generators = [0x3b6a57b2, 0x26508e6d, 0x1ea119fa, 0x3d4233dd, 0x2a1462b3];
+  const generators = [
+    0x3b6a57b2, 0x26508e6d, 0x1ea119fa, 0x3d4233dd, 0x2a1462b3,
+  ];
   let checksum = 1;
   for (const value of values) {
     const top = checksum >>> 25;
@@ -90,7 +119,11 @@ function bech32HrpExpand(hrp: string): number[] {
   return [...high, 0, ...low];
 }
 
-function convertBits(values: number[], from: number, to: number): number[] | null {
+function convertBits(
+  values: number[],
+  from: number,
+  to: number,
+): number[] | null {
   let accumulator = 0;
   let bits = 0;
   const result: number[] = [];
@@ -105,12 +138,14 @@ function convertBits(values: number[], from: number, to: number): number[] | nul
       result.push((accumulator >>> bits) & maxValue);
     }
   }
-  if (bits >= from || ((accumulator << (to - bits)) & maxValue) !== 0) return null;
+  if (bits >= from || ((accumulator << (to - bits)) & maxValue) !== 0)
+    return null;
   return result;
 }
 
 function isBitcoinSegwitAddress(value: string): boolean {
-  if (value !== value.toLowerCase() && value !== value.toUpperCase()) return false;
+  if (value !== value.toLowerCase() && value !== value.toUpperCase())
+    return false;
   const normalized = value.toLowerCase();
   const separator = normalized.lastIndexOf('1');
   if (separator < 1 || separator + 7 > normalized.length) return false;
@@ -118,7 +153,9 @@ function isBitcoinSegwitAddress(value: string): boolean {
   if (hrp !== 'bc') return false;
 
   const alphabet = 'qpzry9x8gf2tvdw0s3jn54khce6mua7l';
-  const data = [...normalized.slice(separator + 1)].map((character) => alphabet.indexOf(character));
+  const data = [...normalized.slice(separator + 1)].map((character) =>
+    alphabet.indexOf(character),
+  );
   if (data.some((value) => value < 0)) return false;
 
   const version = data[0];
@@ -131,7 +168,9 @@ function isBitcoinSegwitAddress(value: string): boolean {
   return version !== 0 || program.length === 20 || program.length === 32;
 }
 
-export async function detectInput(rawInput: string): Promise<DetectionResult | null> {
+export async function detectInput(
+  rawInput: string,
+): Promise<DetectionResult | null> {
   const input = rawInput.trim();
   if (!input || input.length > 128) return null;
 
@@ -147,8 +186,10 @@ export async function detectInput(rawInput: string): Promise<DetectionResult | n
   if (isStellarPublicKey(input)) {
     return { input, kind: 'address', chains: ['stellar'] };
   }
-  if (await hasBase58Check(input, base58Alphabets.bitcoin, 0x00)
-    || await hasBase58Check(input, base58Alphabets.bitcoin, 0x05)) {
+  if (
+    (await hasBase58Check(input, base58Alphabets.bitcoin, 0x00)) ||
+    (await hasBase58Check(input, base58Alphabets.bitcoin, 0x05))
+  ) {
     return { input, kind: 'address', chains: ['bitcoin'] };
   }
   if (await hasBase58Check(input, base58Alphabets.ripple, 0x00)) {

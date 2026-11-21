@@ -13,7 +13,7 @@ ChainBeacon is a lightweight Chrome extension popup for identifying common block
 | XRP Ledger | Mainnet classic Base58Check addresses                    | 64-character hexadecimal hashes          |
 | TRON       | Mainnet Base58Check addresses                            | 64-character hexadecimal transaction IDs |
 | Solana     | Base58 public keys                                       | Base58 64-byte signatures                |
-| Stellar    | Mainnet public account IDs (`G...` StrKeys)               | 64-character hexadecimal transaction IDs |
+| Stellar    | Mainnet public account IDs (`G...` StrKeys)              | 64-character hexadecimal transaction IDs |
 
 Unprefixed 64-character hexadecimal hashes are intentionally listed as Bitcoin, XRP Ledger, TRON, or Stellar candidates rather than guessed. The agent can choose the correct explorer. Explorer links use each network's public mainnet explorer.
 
@@ -31,6 +31,7 @@ Address formats are validated locally, including Base58Check, Bitcoin SegWit che
 nvm install
 nvm use
 npm install --global npm@11.19.1
+npm --version
 npm ci
 npm run dev
 ```
