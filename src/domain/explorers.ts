@@ -21,6 +21,10 @@ const explorerBases: Record<Chain, Record<DataKind, string>> = {
     address: 'https://solscan.io/account/',
     transaction: 'https://solscan.io/tx/',
   },
+  stellar: {
+    address: 'https://stellar.expert/explorer/public/account/',
+    transaction: 'https://stellar.expert/explorer/public/tx/',
+  },
 };
 
 export const chainLabels: Record<Chain, string> = {
@@ -29,6 +33,7 @@ export const chainLabels: Record<Chain, string> = {
   xrp: 'XRP Ledger',
   tron: 'TRON',
   solana: 'Solana',
+  stellar: 'Stellar (XLM)',
 };
 
 export function getExplorerUrl(chain: Chain, kind: DataKind, value: string): string {

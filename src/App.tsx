@@ -141,7 +141,7 @@ function App() {
                 rel="noreferrer"
               >
                 <span className={`chain-icon ${chain}`} aria-hidden="true">
-                  {chain === 'bitcoin' ? '₿' : chain === 'ethereum' ? '◆' : chain === 'xrp' ? 'X' : chain === 'tron' ? 'T' : '◎'}
+                  {chain === 'bitcoin' ? '₿' : chain === 'ethereum' ? '◆' : chain === 'xrp' ? 'X' : chain === 'tron' ? 'T' : chain === 'stellar' ? 'S' : '◎'}
                 </span>
                 <span className="explorer-name">{chainLabels[chain]}</span>
                 <span className="explorer-action">{result.chains.length > 1 ? 'Check explorer' : 'Open explorer'}</span>
@@ -156,7 +156,7 @@ function App() {
       )}
 
       <footer className="footer">
-        <span>Bitcoin · Ethereum · XRP · TRON · Solana</span>
+        <span>Bitcoin · Ethereum · XRP · TRON · Solana · Stellar</span>
         <span className="privacy-note"><span aria-hidden="true">◈</span> Lookup stays on your device</span>
       </footer>
     </main>

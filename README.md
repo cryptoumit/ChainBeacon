@@ -13,10 +13,11 @@ ChainBeacon is a lightweight Chrome extension popup for identifying common block
 | XRP Ledger | Mainnet classic Base58Check addresses                    | 64-character hexadecimal hashes          |
 | TRON       | Mainnet Base58Check addresses                            | 64-character hexadecimal transaction IDs |
 | Solana     | Base58 public keys                                       | Base58 64-byte signatures                |
+| Stellar    | Mainnet public account IDs (`G...` StrKeys)               | 64-character hexadecimal transaction IDs |
 
-Unprefixed 64-character hexadecimal hashes are intentionally listed as Bitcoin, XRP Ledger, or TRON candidates rather than guessed. The agent can choose the correct explorer. Explorer links use each network's public mainnet explorer.
+Unprefixed 64-character hexadecimal hashes are intentionally listed as Bitcoin, XRP Ledger, TRON, or Stellar candidates rather than guessed. The agent can choose the correct explorer. Explorer links use each network's public mainnet explorer.
 
-Address formats are validated locally, including Base58Check, Bitcoin SegWit checksums, and Ethereum mixed-case checksums. Solana public keys and signatures are classified by their Base58-decoded byte length; this confirms the encoding length, not that an account or transaction exists on-chain.
+Address formats are validated locally, including Base58Check, Bitcoin SegWit checksums, Stellar StrKey CRC16-XModem checksums, and Ethereum mixed-case checksums. Stellar support covers public account IDs only; secret seeds are rejected, and muxed accounts and memo IDs are not supported. Solana public keys and signatures are classified by their Base58-decoded byte length; this confirms the encoding length, not that an account or transaction exists on-chain.
 
 ## Requirements
 

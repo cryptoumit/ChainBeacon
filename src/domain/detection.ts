@@ -1,6 +1,6 @@
 import { isAddress } from 'viem';
 
-export type Chain = 'bitcoin' | 'ethereum' | 'xrp' | 'tron' | 'solana';
+export type Chain = 'bitcoin' | 'ethereum' | 'xrp' | 'tron' | 'solana' | 'stellar';
 export type DataKind = 'address' | 'transaction';
 
 export interface DetectionResult {
@@ -34,6 +34,24 @@ function decodeBase58(value: string, alphabet: string): Uint8Array | null {
   const result = new Uint8Array(leadingZeroes + bytes.length);
   result.set(bytes, leadingZeroes);
   return result;
+}
+
+function isStellarPublicKey(value: string): boolean {
+  // StrKeys use the Bitcoin Base58 alphabet, a version byte, and a CRC16-XModem checksum.
+  if (!value.startsWith('G')) return false;
+  const decoded = decodeBase58(value, base58Alphabets.bitcoin);
+  if (!decoded || decoded.length !== 35 || decoded[0] !== 6 << 3) return false;
+
+  let crc = 0;
+  for (const byte of decoded.subarray(0, 33)) {
+    crc ^= byte << 8;
+    for (let bit = 0; bit < 8; bit += 1) {
+      crc = crc & 0x8000 ? ((crc << 1) ^ 0x1021) & 0xffff : (crc << 1) & 0xffff;
+    }
+  }
+
+  // StrKey stores the CRC little-endian.
+  return decoded[33] === (crc & 0xff) && decoded[34] === (crc >>> 8);
 }
 
 async function sha256(value: Uint8Array): Promise<Uint8Array> {
@@ -126,6 +144,9 @@ export async function detectInput(rawInput: string): Promise<DetectionResult | n
   if (isBitcoinSegwitAddress(input)) {
     return { input, kind: 'address', chains: ['bitcoin'] };
   }
+  if (isStellarPublicKey(input)) {
+    return { input, kind: 'address', chains: ['stellar'] };
+  }
   if (await hasBase58Check(input, base58Alphabets.bitcoin, 0x00)
     || await hasBase58Check(input, base58Alphabets.bitcoin, 0x05)) {
     return { input, kind: 'address', chains: ['bitcoin'] };
@@ -148,7 +169,7 @@ export async function detectInput(rawInput: string): Promise<DetectionResult | n
     return {
       input,
       kind: 'transaction',
-      chains: ['bitcoin', 'xrp', 'tron'],
+      chains: ['bitcoin', 'xrp', 'tron', 'stellar'],
     };
   }
   return null;
