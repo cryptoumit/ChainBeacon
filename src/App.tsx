@@ -108,9 +108,6 @@ function App() {
         </button>
       </form>
 
-      <BitcoinNetwork />
-      <EthereumNetwork />
-
       {message && (
         <p role="status" className={`status-message${messageIsSuccess ? ' success' : ''}`}>{message}</p>
       )}
@@ -154,6 +151,9 @@ function App() {
           )}
         </section>
       )}
+
+      <BitcoinNetwork />
+      <EthereumNetwork />
 
       <footer className="footer">
         <span>Bitcoin · Ethereum · XRP · TRON · Solana · Stellar</span>
