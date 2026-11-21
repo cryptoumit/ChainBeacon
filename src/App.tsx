@@ -64,11 +64,10 @@ function App() {
           <BeaconMark />
           <span>Chain<span className="brand-accent">Beacon</span></span>
         </div>
-        <span className="version-pill">SUPPORT TOOL</span>
+        <div className="eyebrow"><span className="live-dot" /> BLOCKCHAIN LOOKUP</div>
       </header>
 
       <section className="intro">
-        <div className="eyebrow"><span className="live-dot" /> BLOCKCHAIN LOOKUP</div>
         <h1>Find the right<br /><span>chain, faster.</span></h1>
         <p>Identify an address or transaction and open it in the right explorer.</p>
       </section>

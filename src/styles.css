@@ -40,9 +40,8 @@ button { color: inherit; }
 .brand-mark { width: 28px; height: 28px; fill: none; stroke: #56d6a1; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .brand-mark circle { fill: #56d6a1; stroke: none; }
 .brand-accent { color: #7ce0b5; }
-.version-pill { border: 1px solid #293531; border-radius: 20px; padding: 5px 8px; color: #899a93; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 8px; letter-spacing: 0.8px; }
 
-.intro { margin: 32px 0 23px; }
+.intro { margin: 22px 0 23px; }
 .eyebrow, .result-kicker { color: #75dcb1; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 9px; letter-spacing: 1.2px; }
 .eyebrow { display: flex; align-items: center; gap: 7px; }
 .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #62d7a5; box-shadow: 0 0 9px rgba(98, 215, 165, 0.7); }
