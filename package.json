@@ -1,6 +1,6 @@
 {
   "name": "chainbeacon",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
   "description": "Blockchain intelligence for customer support teams.",
   "type": "module",
@@ -14,7 +14,7 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "format:check": "prettier --check README.md eslint.config.js .prettierrc.json package.json package-lock.json vite.config.ts tsconfig.json .github/workflows/ci.yml src/domain/detection.ts src/domain/detection.test.ts",
+    "format:check": "prettier --check README.md eslint.config.js .prettierrc.json package.json package-lock.json vite.config.ts tsconfig.json .github/workflows/ci.yml .github/workflows/build-automation.yml .github/scripts/package-extension.mjs src/domain/detection.ts src/domain/detection.test.ts",
     "test": "vitest run",
     "test:watch": "vitest"
   },
