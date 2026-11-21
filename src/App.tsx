@@ -102,7 +102,7 @@ function App() {
           {isChecking ? (
             <><span className="spinner" /> Checking…</>
           ) : (
-            <>Identify value <span aria-hidden="true">↗</span></>
+            <>Detect chain and search <span aria-hidden="true">↗</span></>
           )}
         </button>
       </form>
