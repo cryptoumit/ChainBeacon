@@ -153,7 +153,7 @@ export function LookupPanel() {
                 <span className={`chain-icon ${chain}`} aria-hidden="true">
                   {chain === 'bitcoin'
                     ? '₿'
-                    : chain === 'ethereum'
+                    : chain === 'evm'
                       ? '◆'
                       : chain === 'xrp'
                         ? 'X'
