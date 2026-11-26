@@ -121,20 +121,13 @@ export default function App() {
         </div>
       </section>
       <footer className="web-footer">
-        <a className="brand" href="#top">
+        <div className="brand">
           <BrandMark />
           <span>
             Chain<span className="brand-accent">Beacon</span>
           </span>
-        </a>
+        </div>
         <span>Local format detection for public mainnet explorers.</span>
-        <a
-          href="https://github.com/cryptoumit/ChainBeacon"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          View source on GitHub ↗
-        </a>
       </footer>
     </main>
   );
