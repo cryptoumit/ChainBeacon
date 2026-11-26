@@ -254,7 +254,7 @@ body {
   color: #77847d;
   font-size: 11px;
 }
-.web-shell :focus-visible {
+.web-shell :focus-visible:not(input) {
   outline: 2px solid #75dcb1;
   outline-offset: 3px;
 }
