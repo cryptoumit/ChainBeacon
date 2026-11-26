@@ -10,12 +10,12 @@ export default function App() {
   return (
     <main className="web-shell">
       <header className="web-header">
-        <a className="brand" href="#top" aria-label="ChainBeacon home">
+        <div className="brand">
           <BrandMark />
           <span>
             Chain<span className="brand-accent">Beacon</span>
           </span>
-        </a>
+        </div>
         <nav aria-label="Main navigation">
           <a href="#networks">Networks</a>
           <a href="#privacy">Privacy</a>
