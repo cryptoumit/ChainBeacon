@@ -1,0 +1,36 @@
+name: Feature request
+description: Suggest an improvement or a supported network.
+title: 'Feature: '
+labels: ['enhancement']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an improvement. Do not include real wallet addresses, transaction hashes, secret keys, or other sensitive values.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: Describe the need or friction you have encountered.
+      placeholder: A clear description of the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like to happen?
+      description: Describe the behavior or capability you would find useful.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Optional context about other approaches you have considered.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: I understand ChainBeacon should keep entered values local and must not send them to a server.
+          required: true

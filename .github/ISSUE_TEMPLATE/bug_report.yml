@@ -1,0 +1,51 @@
+name: Bug report
+description: Report a problem with address detection, explorer links, or the app.
+title: 'Bug: '
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve ChainBeacon. **Do not include real wallet addresses, transaction hashes, secret keys, or other sensitive values.** Use a clearly fake example or describe the format instead.
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: Describe the problem and what you expected to happen.
+      placeholder: A short, clear description of the issue.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: List the steps needed to see the problem. Use fake input values only.
+      placeholder: |
+        1. Open ChainBeacon...
+        2. Enter a fake or redacted value...
+        3. See the problem...
+    validations:
+      required: true
+  - type: dropdown
+    id: product
+    attributes:
+      label: Where did this happen?
+      options:
+        - Website
+        - Chrome extension
+        - Firefox extension
+        - All platforms
+        - Not sure
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version
+      placeholder: e.g. Firefox 135
+  - type: textarea
+    id: logs
+    attributes:
+      label: Errors or screenshots
+      description: Remove sensitive values before sharing logs or screenshots.
+      render: text
