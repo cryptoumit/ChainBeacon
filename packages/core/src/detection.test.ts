@@ -189,9 +189,9 @@ describe('detectInput', () => {
 
 describe('getExplorerUrl', () => {
   it('creates explorer links for the selected data type and escapes input', () => {
-    expect(
-      getExplorerUrl('evm', 'transaction', `0x${'a'.repeat(64)}`),
-    ).toBe(`https://blockscan.com/tx/0x${'a'.repeat(64)}`);
+    expect(getExplorerUrl('evm', 'transaction', `0x${'a'.repeat(64)}`)).toBe(
+      `https://blockscan.com/tx/0x${'a'.repeat(64)}`,
+    );
     expect(getExplorerUrl('tron', 'address', 'TTest?#')).toBe(
       'https://tronscan.org/#/address/TTest%3F%23',
     );

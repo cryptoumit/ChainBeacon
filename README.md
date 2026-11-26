@@ -10,14 +10,14 @@
 
 ## Supported lookups
 
-| Network    | Addresses                                                | Transactions                             |
-| ---------- | -------------------------------------------------------- | ---------------------------------------- |
+| Network         | Addresses                                                | Transactions                             |
+| --------------- | -------------------------------------------------------- | ---------------------------------------- |
 | Bitcoin Network | Mainnet Base58Check and Bech32/Bech32m                   | 64-character hexadecimal transaction IDs |
-| ETH/EVM    | EIP-55 checksummed or all-lower/all-upper `0x` addresses | `0x`-prefixed 32-byte hashes             |
-| XRP Ledger | Mainnet classic Base58Check addresses                    | 64-character hexadecimal hashes          |
-| TRON       | Mainnet Base58Check addresses                            | 64-character hexadecimal transaction IDs |
-| Solana     | Base58 public keys                                       | Base58 64-byte signatures                |
-| Stellar    | Mainnet public account IDs (`G...` StrKeys)              | 64-character hexadecimal transaction IDs |
+| ETH/EVM         | EIP-55 checksummed or all-lower/all-upper `0x` addresses | `0x`-prefixed 32-byte hashes             |
+| XRP Ledger      | Mainnet classic Base58Check addresses                    | 64-character hexadecimal hashes          |
+| TRON            | Mainnet Base58Check addresses                            | 64-character hexadecimal transaction IDs |
+| Solana          | Base58 public keys                                       | Base58 64-byte signatures                |
+| Stellar         | Mainnet public account IDs (`G...` StrKeys)              | 64-character hexadecimal transaction IDs |
 
 Format recognition does not prove that an address or transaction exists on-chain. Solana checks the Base58 decoded byte length only. Stellar secret seeds are rejected; muxed accounts and memo IDs are not supported. Unprefixed 64-character hexadecimal hashes can belong to Bitcoin, XRP Ledger, TRON or Stellar; all candidate explorers are shown rather than guessing.
 
