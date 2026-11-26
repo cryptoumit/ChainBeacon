@@ -2,15 +2,22 @@
 
 ## Project overview
 
-- ChainBeacon is a Chrome Manifest V3 popup for locally identifying supported blockchain addresses and transaction IDs, then building links to public mainnet explorers.
-- The UI is in `src/`; chain recognition and validation live under `src/domain/`. Keep chain-specific parsing and explorer URL generation in the domain layer rather than embedding it in UI components.
-- Lookups should remain local. Do not add RPC calls, remote APIs, or transmit user-entered values; navigation to an explorer happens only when the user chooses a link.
-- Validate input formats only to the extent the project documents. For example, Solana Base58 byte-length checks do not establish on-chain existence, and shared 64-character hashes can have multiple chain candidates.
+- ChainBeacon is an npm-workspaces monorepo containing a standalone web app, Chrome MV3 extension, and Firefox MV3 extension.
+- Product layouts live in `apps/web` and `apps/extension`; reusable React components/styles live in `packages/ui`; recognition, validation, network metadata, and explorer URLs live in `packages/core`.
+- Keep all entered values local. Do not add RPC calls, remote APIs, telemetry, analytics, or transmission of user-entered values.
+- Format validation does not establish on-chain existence. Solana Base58 byte-length checks do not prove existence, shared 64-character hashes must preserve all supported candidates, and Stellar secret seeds must remain rejected.
+- The apps compose independent page layouts but should reuse shared UI and core behavior.
 
 ## Environment and commands
-- Consult `.nvmrc` and `package.json` for the required Node/npm versions and available scripts. Run the relevant checks for your changes.
-- To verify extension behavior, build it and load `dist/` in Chrome; Vite preview does not emulate Chrome extension APIs.
+
+- Use Node.js `26.13.1` and npm `11.19.1` as specified by `.nvmrc` and `package.json`.
+- `npm run check` runs lint, formatting, TypeScript checking, and unit tests.
+- `npm run build` creates web, Chrome, and Firefox products; individual builds are available through `build:web`, `build:chrome`, and `build:firefox`.
+- The website targets the GitHub Pages `/ChainBeacon/` repository path. Extension builds must use relative asset URLs.
 
 ## Code and tests
-- Follow the existing TypeScript and React patterns. Put domain tests alongside domain code and update them when changing recognition, validation, or explorer URLs.
-- Keep `README.md` accurate when supported networks or documented behavior change.
+
+- Follow existing strict TypeScript and React patterns. Add core tests beside the domain logic in `packages/core/src`.
+- Keep browser-specific behavior out of core. Avoid extension permissions unless required by a documented capability.
+- Keep README instructions and supported-network information accurate.
+- Do not claim browser loading or deployment has been verified unless it was actually performed.

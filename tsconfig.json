@@ -13,5 +13,10 @@
     "verbatimModuleSyntax": true,
     "types": ["vite/client", "vitest/globals"]
   },
-  "include": ["src"]
+  "include": [
+    "apps/*/src/**/*.ts",
+    "apps/*/src/**/*.tsx",
+    "packages/*/src/**/*.ts",
+    "packages/*/src/**/*.tsx"
+  ]
 }

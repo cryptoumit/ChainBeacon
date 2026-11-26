@@ -36,6 +36,10 @@ export const chainLabels: Record<Chain, string> = {
   stellar: 'Stellar (XLM)',
 };
 
-export function getExplorerUrl(chain: Chain, kind: DataKind, value: string): string {
+export function getExplorerUrl(
+  chain: Chain,
+  kind: DataKind,
+  value: string,
+): string {
   return `${explorerBases[chain][kind]}${encodeURIComponent(value)}`;
 }
