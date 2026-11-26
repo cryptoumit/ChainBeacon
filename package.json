@@ -1,6 +1,6 @@
 {
   "name": "chainbeacon",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "private": true,
   "description": "Blockchain intelligence for customer support teams.",
   "type": "module",
@@ -21,6 +21,7 @@
     "build:chrome": "EXTENSION_TARGET=chrome npm run build --workspace @chainbeacon/extension",
     "build:firefox": "EXTENSION_TARGET=firefox npm run build --workspace @chainbeacon/extension",
     "build:extensions": "npm run build:chrome && npm run build:firefox",
+    "version:bump": "node scripts/bump-version.mjs",
     "preview": "npm run preview --workspace @chainbeacon/web",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
