@@ -1,7 +1,6 @@
 import { isAddress } from 'viem';
 
-export type Chain =
-  'bitcoin' | 'ethereum' | 'xrp' | 'tron' | 'solana' | 'stellar';
+export type Chain = 'bitcoin' | 'evm' | 'xrp' | 'tron' | 'solana' | 'stellar';
 export type DataKind = 'address' | 'transaction';
 
 export interface DetectionResult {
@@ -175,10 +174,10 @@ export async function detectInput(
   if (!input || input.length > 128) return null;
 
   if (/^0x[0-9a-f]{40}$/i.test(input) && isAddress(input)) {
-    return { input, kind: 'address', chains: ['ethereum'] };
+    return { input, kind: 'address', chains: ['evm'] };
   }
   if (/^0x[0-9a-f]{64}$/i.test(input)) {
-    return { input, kind: 'transaction', chains: ['ethereum'] };
+    return { input, kind: 'transaction', chains: ['evm'] };
   }
   if (isBitcoinSegwitAddress(input)) {
     return { input, kind: 'address', chains: ['bitcoin'] };

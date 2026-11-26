@@ -5,9 +5,9 @@ const explorerBases: Record<Chain, Record<DataKind, string>> = {
     address: 'https://blockstream.info/address/',
     transaction: 'https://blockstream.info/tx/',
   },
-  ethereum: {
-    address: 'https://etherscan.io/address/',
-    transaction: 'https://etherscan.io/tx/',
+  evm: {
+    address: 'https://blockscan.com/address/',
+    transaction: 'https://blockscan.com/tx/',
   },
   xrp: {
     address: 'https://livenet.xrpl.org/accounts/',
@@ -28,8 +28,8 @@ const explorerBases: Record<Chain, Record<DataKind, string>> = {
 };
 
 export const chainLabels: Record<Chain, string> = {
-  bitcoin: 'Bitcoin',
-  ethereum: 'Ethereum',
+  bitcoin: 'Bitcoin Network',
+  evm: 'ETH/EVM',
   xrp: 'XRP Ledger',
   tron: 'TRON',
   solana: 'Solana',

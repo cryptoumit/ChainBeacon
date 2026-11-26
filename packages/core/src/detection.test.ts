@@ -74,22 +74,22 @@ function makeTaprootAddress(): string {
 }
 
 describe('detectInput', () => {
-  it('recognizes checksummed and lowercase Ethereum addresses', async () => {
+  it('recognizes checksummed and lowercase EVM addresses', async () => {
     await expect(
       detectInput('0x52908400098527886E0F7030069857D2E4169EE7'),
     ).resolves.toMatchObject({
       kind: 'address',
-      chains: ['ethereum'],
+      chains: ['evm'],
     });
     await expect(
       detectInput('0xde709f2102306220921060314715629080e2fb77'),
     ).resolves.toMatchObject({
       kind: 'address',
-      chains: ['ethereum'],
+      chains: ['evm'],
     });
   });
 
-  it('rejects invalid mixed-case Ethereum checksums', async () => {
+  it('rejects invalid mixed-case EVM checksums', async () => {
     await expect(
       detectInput('0x52908400098527886E0F7030069857D2E4169Ee7'),
     ).resolves.toBeNull();
@@ -173,10 +173,10 @@ describe('detectInput', () => {
     });
   });
 
-  it('recognizes prefixed Ethereum transaction hashes', async () => {
+  it('recognizes prefixed EVM transaction hashes', async () => {
     await expect(detectInput(`0x${'a'.repeat(64)}`)).resolves.toMatchObject({
       kind: 'transaction',
-      chains: ['ethereum'],
+      chains: ['evm'],
     });
   });
 
@@ -190,8 +190,8 @@ describe('detectInput', () => {
 describe('getExplorerUrl', () => {
   it('creates explorer links for the selected data type and escapes input', () => {
     expect(
-      getExplorerUrl('ethereum', 'transaction', `0x${'a'.repeat(64)}`),
-    ).toBe(`https://etherscan.io/tx/0x${'a'.repeat(64)}`);
+      getExplorerUrl('evm', 'transaction', `0x${'a'.repeat(64)}`),
+    ).toBe(`https://blockscan.com/tx/0x${'a'.repeat(64)}`);
     expect(getExplorerUrl('tron', 'address', 'TTest?#')).toBe(
       'https://tronscan.org/#/address/TTest%3F%23',
     );

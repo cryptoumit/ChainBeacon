@@ -12,8 +12,8 @@
 
 | Network    | Addresses                                                | Transactions                             |
 | ---------- | -------------------------------------------------------- | ---------------------------------------- |
-| Bitcoin    | Mainnet Base58Check and Bech32/Bech32m                   | 64-character hexadecimal transaction IDs |
-| Ethereum   | EIP-55 checksummed or all-lower/all-upper `0x` addresses | `0x`-prefixed 32-byte hashes             |
+| Bitcoin Network | Mainnet Base58Check and Bech32/Bech32m                   | 64-character hexadecimal transaction IDs |
+| ETH/EVM    | EIP-55 checksummed or all-lower/all-upper `0x` addresses | `0x`-prefixed 32-byte hashes             |
 | XRP Ledger | Mainnet classic Base58Check addresses                    | 64-character hexadecimal hashes          |
 | TRON       | Mainnet Base58Check addresses                            | 64-character hexadecimal transaction IDs |
 | Solana     | Base58 public keys                                       | Base58 64-byte signatures                |
@@ -23,7 +23,7 @@ Format recognition does not prove that an address or transaction exists on-chain
 
 ## Privacy
 
-All address and transaction format checks run locally in the browser. Entered lookup values are never sent to a server. The optional Bitcoin block/fee and Ethereum block/gas status cards fetch public network data from Blockstream and Nodely; these requests do not contain lookup values. Explorer navigation occurs only when a user chooses an explorer link. The extensions request host access only to those two data providers. ChainBeacon includes no analytics.
+All address and transaction format checks run locally in the browser. Entered lookup values are never sent to a server. The optional Bitcoin block/fee and Ethereum block/gas status cards fetch public network data from Blockstream and Nodely; these requests do not contain lookup values. EVM format recognition cannot identify a specific network, so EVM results link to Blockscan's multichain explorer. Explorer navigation occurs only when a user chooses an explorer link. The extensions request host access only to those two data providers. ChainBeacon includes no analytics.
 
 ## Architecture
 
