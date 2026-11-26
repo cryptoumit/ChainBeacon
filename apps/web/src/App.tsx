@@ -3,6 +3,7 @@ import {
   BrandMark,
   EthereumNetwork,
   LookupPanel,
+  NetworkIcon,
 } from '@chainbeacon/ui';
 import { supportedNetworks } from '@chainbeacon/core';
 
@@ -70,9 +71,7 @@ export default function App() {
         <div className="network-grid">
           {supportedNetworks.map((network) => (
             <div className="network-tile" key={network.id}>
-              <span className={`chain-icon ${network.id}`} aria-hidden="true">
-                {network.symbol}
-              </span>
+              <NetworkIcon chain={network.id} symbol={network.symbol} />
               <span>{network.label}</span>
             </div>
           ))}

@@ -5,6 +5,7 @@ import {
   getExplorerUrl,
   type DetectionResult,
 } from '@chainbeacon/core';
+import { NetworkIcon } from './NetworkIcon';
 
 export function LookupPanel() {
   const [value, setValue] = useState('');
@@ -150,19 +151,7 @@ export function LookupPanel() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className={`chain-icon ${chain}`} aria-hidden="true">
-                  {chain === 'bitcoin'
-                    ? '₿'
-                    : chain === 'evm'
-                      ? '◆'
-                      : chain === 'xrp'
-                        ? 'X'
-                        : chain === 'tron'
-                          ? 'T'
-                          : chain === 'stellar'
-                            ? 'S'
-                            : '◎'}
-                </span>
+                <NetworkIcon chain={chain} symbol="◎" />
                 <span className="explorer-name">{chainLabels[chain]}</span>
                 <span className="explorer-action">
                   {result.chains.length > 1
