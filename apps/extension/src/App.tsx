@@ -1,4 +1,9 @@
-import { BrandMark, LookupPanel } from '@chainbeacon/ui';
+import {
+  BitcoinNetwork,
+  BrandMark,
+  EthereumNetwork,
+  LookupPanel,
+} from '@chainbeacon/ui';
 import { supportedNetworks } from '@chainbeacon/core';
 
 export default function App() {
@@ -26,6 +31,8 @@ export default function App() {
         </p>
       </section>
       <LookupPanel />
+      <BitcoinNetwork />
+      <EthereumNetwork />
       <footer className="footer">
         <span>
           {supportedNetworks

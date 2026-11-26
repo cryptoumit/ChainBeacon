@@ -114,6 +114,30 @@ body {
   color: #82958a;
   font-size: 12px;
 }
+.live-networks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  max-width: 820px;
+  margin: 0 auto 70px;
+}
+.live-networks .bitcoin-card {
+  margin-top: 0;
+  padding: 16px;
+}
+.live-networks .bitcoin-heading h2 {
+  font-size: 13px;
+}
+.live-networks .bitcoin-stats > div {
+  font-size: 10px;
+}
+.live-networks .bitcoin-stats strong {
+  font-size: 12px;
+}
+.live-networks .bitcoin-loading,
+.live-networks .bitcoin-error {
+  font-size: 11px;
+}
 .networks-section {
   padding: 66px 0;
   border-top: 1px solid #252d29;
@@ -262,6 +286,10 @@ body {
     grid-template-columns: 1fr;
     gap: 24px;
     padding: 50px 0;
+  }
+  .live-networks {
+    grid-template-columns: 1fr;
+    margin-bottom: 50px;
   }
   .privacy-section {
     grid-template-columns: 1fr;

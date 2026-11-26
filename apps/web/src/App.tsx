@@ -1,4 +1,9 @@
-import { BrandMark, LookupPanel } from '@chainbeacon/ui';
+import {
+  BitcoinNetwork,
+  BrandMark,
+  EthereumNetwork,
+  LookupPanel,
+} from '@chainbeacon/ui';
 import { supportedNetworks } from '@chainbeacon/core';
 
 export default function App() {
@@ -49,6 +54,10 @@ export default function App() {
           <span>✓ Mainnet explorers</span>
         </div>
       </section>
+      <section className="live-networks" aria-label="Live network data">
+        <BitcoinNetwork />
+        <EthereumNetwork />
+      </section>
       <section className="networks-section" id="networks">
         <div>
           <p className="section-kicker">SUPPORTED MAINNETS</p>
@@ -78,8 +87,9 @@ export default function App() {
           <h2>Your lookup stays on your device.</h2>
           <p>
             Address and transaction format checks run locally in your browser.
-            ChainBeacon does not send entered values to a server or query
-            blockchain APIs. An explorer opens only when you choose its link.
+            ChainBeacon never sends entered values to a server. Bitcoin and
+            Ethereum network status shown above is fetched separately from
+            public providers. An explorer opens only when you choose its link.
           </p>
           <p className="validation-note">
             A valid format is not proof that a wallet or transaction exists.

@@ -23,7 +23,7 @@ Format recognition does not prove that an address or transaction exists on-chain
 
 ## Privacy
 
-All address and transaction format checks run locally in the browser. ChainBeacon does not send lookup values to a server, call blockchain APIs, or include analytics. Explorer navigation occurs only when a user chooses an explorer link. No extension host permissions are needed.
+All address and transaction format checks run locally in the browser. Entered lookup values are never sent to a server. The optional Bitcoin block/fee and Ethereum block/gas status cards fetch public network data from Blockstream and Nodely; these requests do not contain lookup values. Explorer navigation occurs only when a user chooses an explorer link. The extensions request host access only to those two data providers. ChainBeacon includes no analytics.
 
 ## Architecture
 
