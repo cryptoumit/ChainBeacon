@@ -11,7 +11,7 @@
   "dependencies": {
     "@chainbeacon/core": "*",
     "@chainbeacon/ui": "*",
-    "@vitejs/plugin-react": "5.2.0",
+    "@vitejs/plugin-react": "6.3.0",
     "vite": "8.3.8",
     "typescript": "^5.7.0",
     "react": "^19.0.0",
