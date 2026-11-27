@@ -1,4 +1,5 @@
 import { readFile, writeFile } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -6,8 +7,20 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const bumpType = process.argv[2] ?? 'patch';
 const increments = ['major', 'minor', 'patch'];
 
+function git(...args) {
+  return execFileSync('git', args, {
+    cwd: root,
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'pipe'],
+  }).trim();
+}
+
 if (!increments.includes(bumpType)) {
   throw new Error('Usage: npm run version:bump -- [major|minor|patch]');
+}
+
+if (git('status', '--porcelain')) {
+  throw new Error('Commit or stash the existing working tree changes before bumping the version.');
 }
 
 const manifestPaths = [
@@ -48,6 +61,10 @@ const nextVersion =
       ? `${major}.${minor + 1}.0`
       : `${major}.${minor}.${patch + 1}`;
 
+if (git('tag', '--list', nextVersion)) {
+  throw new Error(`Git tag ${nextVersion} already exists.`);
+}
+
 for (const manifest of manifests) {
   manifest.data.version = nextVersion;
   await writeFile(
@@ -70,4 +87,11 @@ for (const workspace of [
 }
 await writeFile(lockPath, `${JSON.stringify(lock, null, 2)}\n`);
 
-console.log(`Bumped ChainBeacon ${currentVersion} → ${nextVersion}`);
+const changedFiles = [...manifestPaths, 'package-lock.json'];
+git('add', '--', ...changedFiles);
+git('commit', '-m', `${nextVersion}`);
+git('tag', nextVersion);
+
+console.log(
+  `Bumped ChainBeacon ${currentVersion} → ${nextVersion}, committed and tagged ${nextVersion}`,
+);
