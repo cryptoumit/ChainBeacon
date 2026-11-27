@@ -23,6 +23,10 @@ jobs:
           RELEASE_TAG: ${{ github.event.release.tag_name }}
       - run: npm install --global npm@11.19.1
       - run: npm ci
+      - name: Verify dependency tree
+        run: npm ls
+      - name: Audit full dependency tree
+        run: npm audit
       - run: npm run check
       - run: npm run build:chrome
       - run: npm run build:firefox
