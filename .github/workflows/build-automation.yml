@@ -32,3 +32,28 @@ jobs:
           path: chainbeacon-*.zip
           if-no-files-found: error
           retention-days: 30
+
+  attach-release-assets:
+    if: github.event_name == 'release' && github.event.action == 'published'
+    needs: package
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: chainbeacon-browser-extensions
+          path: release-assets
+      - name: Attach extension ZIPs to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          set -euo pipefail
+          test -f release-assets/chainbeacon-chrome.zip
+          test -f release-assets/chainbeacon-firefox.zip
+          gh release upload "$RELEASE_TAG" \
+            release-assets/chainbeacon-chrome.zip \
+            release-assets/chainbeacon-firefox.zip \
+            --clobber \
+            --repo "$GITHUB_REPOSITORY"
