@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "ChainBeacon",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Blockchain intelligence for customer support teams.",
   "host_permissions": [
     "https://blockstream.info/*",
