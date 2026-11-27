@@ -55,7 +55,9 @@ for (const workspace of [
 
 const releaseTag = process.env.RELEASE_TAG;
 if (releaseTag && releaseTag !== expectedVersion) {
-  mismatches.push(`release tag ${releaseTag} does not match ${expectedVersion}`);
+  mismatches.push(
+    `release tag ${releaseTag} does not match ${expectedVersion}`,
+  );
 }
 
 if (mismatches.length > 0) {
