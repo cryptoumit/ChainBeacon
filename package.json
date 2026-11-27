@@ -22,6 +22,7 @@
     "build:firefox": "EXTENSION_TARGET=firefox npm run build --workspace @chainbeacon/extension",
     "build:extensions": "npm run build:chrome && npm run build:firefox",
     "version:bump": "node scripts/bump-version.mjs",
+    "release:check-version": "node scripts/check-release-version.mjs",
     "preview": "npm run preview --workspace @chainbeacon/web",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
