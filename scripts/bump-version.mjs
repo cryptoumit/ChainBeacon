@@ -20,7 +20,9 @@ if (!increments.includes(bumpType)) {
 }
 
 if (git('status', '--porcelain')) {
-  throw new Error('Commit or stash the existing working tree changes before bumping the version.');
+  throw new Error(
+    'Commit or stash the existing working tree changes before bumping the version.',
+  );
 }
 
 const manifestPaths = [
