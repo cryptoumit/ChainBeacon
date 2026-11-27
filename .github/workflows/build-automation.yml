@@ -48,11 +48,21 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
       - uses: actions/download-artifact@v8
         with:
           name: chainbeacon-browser-extensions
           path: release-assets
-      - name: Attach extension ZIPs to the release
+      - name: Generate release notes from Conventional Commits
+        run: node scripts/generate-release-notes.mjs > release-notes.md
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+      - name: Update release notes and attach extension ZIPs
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_TAG: ${{ github.event.release.tag_name }}
@@ -60,6 +70,9 @@ jobs:
           set -euo pipefail
           test -f release-assets/chainbeacon-chrome.zip
           test -f release-assets/chainbeacon-firefox.zip
+          gh release edit "$RELEASE_TAG" \
+            --notes-file release-notes.md \
+            --repo "$GITHUB_REPOSITORY"
           gh release upload "$RELEASE_TAG" \
             release-assets/chainbeacon-chrome.zip \
             release-assets/chainbeacon-firefox.zip \
