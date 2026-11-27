@@ -15,6 +15,23 @@ function git(...args) {
   }).trim();
 }
 
+function gh(...args) {
+  try {
+    return execFileSync('gh', args, {
+      cwd: root,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'pipe'],
+    }).trim();
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      throw new Error(
+        'GitHub CLI (gh) is required. Install it with `brew install gh`, then run `gh auth login`.',
+      );
+    }
+    throw error;
+  }
+}
+
 if (!increments.includes(bumpType)) {
   throw new Error('Usage: npm run version:bump -- [major|minor|patch]');
 }
@@ -24,6 +41,22 @@ if (git('status', '--porcelain')) {
     'Commit or stash the existing working tree changes before bumping the version.',
   );
 }
+
+const branch = git('branch', '--show-current');
+if (!branch) {
+  throw new Error('Check out a branch before creating a release.');
+}
+
+git('remote', 'get-url', 'origin');
+gh('auth', 'status');
+const repository = gh(
+  'repo',
+  'view',
+  '--json',
+  'nameWithOwner',
+  '--jq',
+  '.nameWithOwner',
+);
 
 const manifestPaths = [
   'package.json',
@@ -93,7 +126,25 @@ const changedFiles = [...manifestPaths, 'package-lock.json'];
 git('add', '--', ...changedFiles);
 git('commit', '-m', `${nextVersion}`);
 git('tag', nextVersion);
+git(
+  'push',
+  '--atomic',
+  'origin',
+  `HEAD:refs/heads/${branch}`,
+  `refs/tags/${nextVersion}`,
+);
+gh(
+  'release',
+  'create',
+  nextVersion,
+  '--draft',
+  '--generate-notes',
+  '--title',
+  `ChainBeacon ${nextVersion}`,
+  '--repo',
+  repository,
+);
 
 console.log(
-  `Bumped ChainBeacon ${currentVersion} → ${nextVersion}, committed and tagged ${nextVersion}`,
+  `Bumped ChainBeacon ${currentVersion} → ${nextVersion}, pushed the commit and tag, and created a draft GitHub Release. Review and publish the draft to package the extensions.`,
 );

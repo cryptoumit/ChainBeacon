@@ -55,24 +55,29 @@ npm run dev
 
 ## Commands
 
-| Command                    | Purpose                                       |
-| -------------------------- | --------------------------------------------- |
-| `npm run dev`              | Start the web app locally                     |
-| `npm run dev:web`          | Start the web app locally                     |
-| `npm run dev:extension`    | Start the extension popup in Vite for UI work |
-| `npm run build`            | Run checks, then build all three products     |
-| `npm run build:web`        | Build GitHub Pages website at `dist/web`      |
-| `npm run build:chrome`     | Build Chrome extension at `dist/chrome`       |
-| `npm run build:firefox`    | Build Firefox extension at `dist/firefox`     |
-| `npm run build:extensions` | Build both extension packages                 |
-| `npm test`                 | Run core unit tests once                      |
-| `npm run test:watch`       | Run tests in watch mode                       |
-| `npm run lint`             | Run ESLint                                    |
-| `npm run format:check`     | Check Prettier formatting                     |
-| `npm run typecheck`        | Run strict TypeScript checking                |
-| `npm run check`            | Run lint, formatting, type checking and tests |
+| Command                         | Purpose                                                                   |
+| ------------------------------- | ------------------------------------------------------------------------- |
+| `npm run dev`                   | Start the web app locally                                                 |
+| `npm run dev:web`               | Start the web app locally                                                 |
+| `npm run dev:extension`         | Start the extension popup in Vite for UI work                             |
+| `npm run build`                 | Run checks, then build all three products                                 |
+| `npm run build:web`             | Build GitHub Pages website at `dist/web`                                  |
+| `npm run build:chrome`          | Build Chrome extension at `dist/chrome`                                   |
+| `npm run build:firefox`         | Build Firefox extension at `dist/firefox`                                 |
+| `npm run build:extensions`      | Build both extension packages                                             |
+| `npm run version:bump -- patch` | Bump versions, push the commit and tag, and create a draft GitHub Release |
+| `npm test`                      | Run core unit tests once                                                  |
+| `npm run test:watch`            | Run tests in watch mode                                                   |
+| `npm run lint`                  | Run ESLint                                                                |
+| `npm run format:check`          | Check Prettier formatting                                                 |
+| `npm run typecheck`             | Run strict TypeScript checking                                            |
+| `npm run check`                 | Run lint, formatting, type checking and tests                             |
 
 Use `npm run build:web` for the production site and `npm run preview` to preview it. The production web build uses `/ChainBeacon/` as its base path for GitHub Pages. Vite preview does not emulate extension APIs.
+
+## Release a new version
+
+Install and authenticate the GitHub CLI (`gh auth login`) with permission to push to the repository and create releases. Start from a clean working tree on the branch you want to release, then run `npm run version:bump -- patch`, `minor`, or `major`. The command updates all package and extension manifest versions, commits the changes, creates and pushes the matching tag, and opens a draft GitHub Release with generated notes. Review and publish the draft to trigger the extension packaging workflow; that workflow adds the Chrome and Firefox ZIPs and final release notes.
 
 ## Load Chrome extension
 
