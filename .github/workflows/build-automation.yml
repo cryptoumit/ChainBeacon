@@ -34,6 +34,8 @@ jobs:
         run: |
           cd dist/chrome && zip -qr ../../chainbeacon-chrome.zip .
           cd ../firefox && zip -qr ../../chainbeacon-firefox.zip .
+      - name: Smoke-check extension ZIPs
+        run: npm run release:check-archives
       - uses: actions/upload-artifact@v7
         with:
           name: chainbeacon-browser-extensions
