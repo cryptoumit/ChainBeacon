@@ -382,26 +382,9 @@ h1 span {
   align-items: center;
   gap: 7px;
 }
-.bitcoin-symbol {
-  display: grid;
+.bitcoin-heading .chain-icon {
   width: 19px;
   height: 19px;
-  place-items: center;
-  border-radius: 50%;
-  background: #4c3721;
-  color: #f4a340;
-  font-size: 12px;
-  font-weight: 700;
-}
-.ethereum-symbol {
-  display: grid;
-  width: 19px;
-  height: 19px;
-  place-items: center;
-  border-radius: 50%;
-  background: #303946;
-  color: #a8b6f2;
-  font-size: 10px;
 }
 .bitcoin-heading h2 {
   margin: 0;

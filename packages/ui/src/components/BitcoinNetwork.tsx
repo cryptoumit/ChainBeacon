@@ -5,6 +5,7 @@ import {
   formatRelativeBlockTime,
   type LatestBitcoinBlock,
 } from '../services/bitcoin';
+import { NetworkIcon } from './NetworkIcon';
 
 const REFRESH_INTERVAL_MS = 60_000;
 
@@ -89,9 +90,7 @@ function BitcoinNetwork() {
   return (
     <section className="bitcoin-card" aria-label="Bitcoin network">
       <div className="bitcoin-heading">
-        <span className="bitcoin-symbol" aria-hidden="true">
-          ₿
-        </span>
+        <NetworkIcon chain="bitcoin" />
         <h2>Bitcoin Network</h2>
         <button
           className={`bitcoin-refresh${refreshing ? ' is-refreshing' : ''}`}

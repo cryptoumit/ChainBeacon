@@ -4,6 +4,7 @@ import {
   formatRelativeBlockTime,
   type LatestEthereumData,
 } from '../services/ethereum';
+import { NetworkIcon } from './NetworkIcon';
 
 const REFRESH_INTERVAL_MS = 60_000;
 
@@ -69,9 +70,7 @@ function EthereumNetwork() {
   return (
     <section className="bitcoin-card" aria-label="Ethereum network">
       <div className="bitcoin-heading">
-        <span className="ethereum-symbol" aria-hidden="true">
-          ◆
-        </span>
+        <NetworkIcon chain="evm" />
         <h2>Ethereum</h2>
         <button
           className={`bitcoin-refresh${refreshing ? ' is-refreshing' : ''}`}
